@@ -1,7 +1,7 @@
 package models
 
 import (
-	"fmt"
+	"encoding/json"
 	"github.com/jinzhu/gorm"
 )
 
@@ -16,11 +16,24 @@ type Pokemon struct {
 
 type Pokemons []Pokemon
 
-func (p *Pokemon) Create() {
-	db.DB.Create(&p)
+func All(ps *Pokemons) string {
+	Db.C.Find(&ps)
+	json, err := json.Marshal(ps)
+	if err != nil {
+		panic("erro no list all")
+	}
+	return string(json)
 }
 
-func All(p *Pokemons) {
-	db.DB.Find(&p)
-	fmt.Println(p)
+func (p *Pokemon) Create() {
+	Db.C.Create(&p)
+}
+
+func (p *Pokemon) Find(id int) string {
+	Db.C.Where("Code = ?", id).Find(&p)
+	json, err := json.Marshal(p)
+	if err != nil {
+		panic("erro no find")
+	}
+	return string(json)
 }

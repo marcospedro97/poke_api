@@ -2,23 +2,38 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"poke/models"
+	"strconv"
 )
 
 func PokemonsIndex(c *gin.Context) {
 	p := models.Pokemons{}
-	models.All(&p)
-	fmt.Println(p)
-	j, err := json.Marshal(p)
-	if err != nil {
-		panic("erro no marshal de index")
-	}
-	c.String(http.StatusOK, string(j))
+	json := models.All(&p)
+	c.String(http.StatusOK, json)
 }
 
-func PokemonsCreate(c *gin.Context) {
+func PokemonShow(c *gin.Context) {
+	idParam := c.Param("id")
+	id, err := strconv.Atoi(idParam)
+	if err != nil {
+		panic("erro no parametro id")
+	}
+	pokemon := models.Pokemon{}
+	json := pokemon.Find(id)
+	c.String(http.StatusOK, json)
+}
 
+func PokemonCreate(c *gin.Context) {
+	body, err := c.GetRawData()
+	if err != nil {
+		panic("erro no create")
+	}
+	pokemon := models.Pokemon{}
+	if err := json.Unmarshal(body, &pokemon); err != nil {
+		panic("erro no unmarshal")
+	}
+	pokemon.Create()
+	c.String(http.StatusOK, string(body))
 }
