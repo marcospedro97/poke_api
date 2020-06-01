@@ -18,7 +18,7 @@ func PokemonShow(c *gin.Context) {
 	idParam := c.Param("id")
 	id, err := strconv.Atoi(idParam)
 	if err != nil {
-		panic("erro no parametro id")
+		c.String(http.StatusNotFound, "{error: 'invalid id'}")
 	}
 	pokemon := models.Pokemon{}
 	json := pokemon.Find(id)
@@ -32,7 +32,7 @@ func PokemonCreate(c *gin.Context) {
 	}
 	pokemon := models.Pokemon{}
 	if err := json.Unmarshal(body, &pokemon); err != nil {
-		panic("erro no unmarshal")
+		c.String(http.StatusInternalServerError, "{error: 'invalid json'}")
 	}
 	pokemon.Create()
 	c.String(http.StatusOK, string(body))

@@ -7,11 +7,11 @@ import (
 
 type Pokemon struct {
 	gorm.Model `json:"-"`
-	Code       int    `gorm:"unique" json:"code"`
-	Name       string `gorm:"unique" json:"name"`
-	Type       string `json:"type"`
-	NextEv     int    `json:"Next_Evolution"`
-	PreviousEv int    `json:"Previous_Evolution"`
+	Code       int    `gorm:"unique" json:"Code"`
+	Name       string `gorm:"unique" json:"Name"`
+	Type       string `json:"Type"`
+	NextEv     int    `json:"Next_evolution"`
+	PreviousEv int    `json:"Previous_evolution"`
 }
 
 type Pokemons []Pokemon

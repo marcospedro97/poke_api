@@ -12,5 +12,7 @@ func main() {
 	r.GET("/", controllers.PokemonsIndex)
 	r.GET("/:id", controllers.PokemonShow)
 	r.POST("/create", controllers.PokemonCreate)
+	r.POST("/sign_up", controllers.UserCreate)
+	r.POST("/sign_in", controllers.UserRead)
 	r.Run()
 }
