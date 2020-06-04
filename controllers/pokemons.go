@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"poke/models"
@@ -27,10 +28,17 @@ func PokemonShow(c *gin.Context) {
 
 func PokemonCreate(c *gin.Context) {
 	body, err := c.GetRawData()
+
 	if err != nil {
 		panic("erro no create")
 	}
+	uuidString := fmt.Sprintf("%v", c.MustGet("userUUID"))
 	pokemon := models.Pokemon{}
+	pokemon.UserUUID, err = strconv.ParseUint(uuidString, 10, 32)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(pokemon.UserUUID)
 	if err := json.Unmarshal(body, &pokemon); err != nil {
 		c.String(http.StatusInternalServerError, "{error: 'invalid json'}")
 	}

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"poke/middlewares"
 	"poke/models"
 )
 
@@ -28,10 +29,13 @@ func UserRead(c *gin.Context) {
 	if err = json.Unmarshal(body, &user); err != nil {
 		c.String(http.StatusInternalServerError, "{error: 'invalid json'}")
 	}
-	if err = user.Authenticate(); err == nil {
-		t := models.NewToken(user.Uuid)
-		var jwt string
-		jwt, err = t.GenerateJWT()
-		c.String(http.StatusOK, jwt)
+	err = user.Authenticate()
+	if err != nil {
+		c.String(http.StatusUnauthorized, "user not authenticated")
 	}
+	token, err := middlewares.GenerateToken(user.Uuid)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "{error: token not created}")
+	}
+	c.String(http.StatusOK, token)
 }
