@@ -47,5 +47,5 @@ func PokemonCreate(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 	}
 	pokemon.Create()
-	c.JSON(201, string(body))
+	c.JSON(201, pokemon)
 }
