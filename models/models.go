@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/go-redis/redis/v7"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -18,12 +17,11 @@ func Init() {
 	var err error
 	Db.C, err = gorm.Open("sqlite3", "./database/test.db")
 	if err != nil {
-		panic("failed to connect database")
+		panic(err)
 	}
 	err = redisConnect()
 	if err != nil {
-		fmt.Println("failed on redis")
-		panic("failed to connect redis")
+		panic(err)
 	}
 }
 

@@ -11,26 +11,31 @@ import (
 
 func PokemonsIndex(c *gin.Context) {
 	p := models.Pokemons{}
-	json := models.All(&p)
-	c.String(http.StatusOK, json)
+	json, err := models.All(&p)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+	}
+	c.String(200, json)
 }
 
 func PokemonShow(c *gin.Context) {
 	idParam := c.Param("id")
 	id, err := strconv.Atoi(idParam)
 	if err != nil {
-		c.String(http.StatusNotFound, "{error: 'invalid id'}")
+		c.JSON(406, gin.H{"error": err.Error()})
 	}
 	pokemon := models.Pokemon{}
-	json := pokemon.Find(id)
+	json, err := pokemon.Find(id)
+	if err != nil {
+		c.JSON(404, gin.H{"error": err.Error()})
+	}
 	c.String(http.StatusOK, json)
 }
 
 func PokemonCreate(c *gin.Context) {
 	body, err := c.GetRawData()
-
 	if err != nil {
-		panic("erro no create")
+		c.JSON(400, gin.H{"error": err.Error()})
 	}
 	uuidString := fmt.Sprintf("%v", c.MustGet("userUUID"))
 	pokemon := models.Pokemon{}
@@ -38,10 +43,9 @@ func PokemonCreate(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(pokemon.UserUUID)
 	if err := json.Unmarshal(body, &pokemon); err != nil {
-		c.String(http.StatusInternalServerError, "{error: 'invalid json'}")
+		c.JSON(400, gin.H{"error": err.Error()})
 	}
 	pokemon.Create()
-	c.String(http.StatusOK, string(body))
+	c.JSON(201, string(body))
 }
