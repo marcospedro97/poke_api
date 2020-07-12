@@ -10,54 +10,59 @@ After this you'll be able to run
 Only one path is locked with authentication, it's the create, wich enable
 you to create a new pokemon in the DB, the list of paths is bellow
 
-/sign_up path to create a new user
+*/sign_up*  
+ path to create a new user
 
-{
-	"email":"alfred@gmail",
-	"password":"123456789"
-}
+{  
+	"email":"alfred@gmail",  
+	"password":"123456789"  
+}  
 
-/sign_in login of a existent user
+*/sign_in*  
+ login of a existent user
 
-{
-	"email":"alfred@gmail",
-	"password":"123456789"
-}
+{  
+	"email":"alfred@gmail",  
+	"password":"123456789"  
+}  
 
 will return a token that should be placed in the headers with key "Authentication"
 
-/ root path to list all pokemons in the DB
+*/*  
+root path to list all pokemons in the DB
 
-[
-	{
-	  "Name": "vasdfasd",
-	  "Code": 21,
-	  "Type": "f",
-	  "Next_evolution": 22,
-	  "Previous_evolution": 20
-	}
-]
+[  
+	{  
+	  "Name": "vasdfasd",  
+	  "Code": 21,  
+	  "Type": "f",  
+	  "Next_evolution": 22,  
+	  "Previous_evolution": 20  
+	}  
+]  
 
-/:id will return a single pokemon from the DB 
+*/:id*
+will return a single pokemon from the DB  
 
-/21
+Example: */21*  
 
-{
-  "Code": 21,
-  "Name": "vasdfasd",
-  "Type": "f",
-  "Next_evolution": 22,
-  "Previous_evolution": 20
-}
+{  
+  "Code": 21,  
+  "Name": "vasdfasd",  
+  "Type": "f",  
+  "Next_evolution": 22,  
+  "Previous_evolution": 20  
+}  
 
-/user/create creates a new pokemon, stores the user who created it and return
-the pokemon
+*/user/create*  
+creates a new pokemon, stores the user who created it and return  
+the pokemon  
 
-{
-	"Name":"adsfasdf",
-	"Code": 22,
-	"Type": "f",
-	"Next_evolution": 3,
-	"Previous_evolution": 1
-}
+{  
+	"Name":"adsfasdf",  
+	"Code": 22,  
+	"Type": "f",  
+	"Next_evolution": 3,  
+	"Previous_evolution": 1  
+}  
 
