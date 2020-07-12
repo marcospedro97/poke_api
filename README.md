@@ -10,7 +10,7 @@ After this you'll be able to run
 Only one path is locked with authentication, it's the create, wich enable
 you to create a new pokemon in the DB, the list of paths is bellow
 
-*/sign_up*  
+**/sign_up**  
  path to create a new user
 
 {  
@@ -18,7 +18,7 @@ you to create a new pokemon in the DB, the list of paths is bellow
 	"password":"123456789"  
 }  
 
-*/sign_in*  
+**/sign_in**  
  login of a existent user
 
 {  
@@ -28,7 +28,7 @@ you to create a new pokemon in the DB, the list of paths is bellow
 
 will return a token that should be placed in the headers with key "Authentication"
 
-*/*  
+**/**  
 root path to list all pokemons in the DB
 
 [  
@@ -41,10 +41,10 @@ root path to list all pokemons in the DB
 	}  
 ]  
 
-*/:id*
+**/:id**
 will return a single pokemon from the DB  
 
-Example: */21*  
+Example: **/21**  
 
 {  
   "Code": 21,  
@@ -54,7 +54,7 @@ Example: */21*
   "Previous_evolution": 20  
 }  
 
-*/user/create*  
+**/user/create**  
 creates a new pokemon, stores the user who created it and return  
 the pokemon  
 
