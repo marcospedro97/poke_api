@@ -41,7 +41,7 @@ root path to list all pokemons in the DB
 	}  
 ]  
 
-**/:id**
+**/:id**  
 will return a single pokemon from the DB  
 
 Example: **/21**  
