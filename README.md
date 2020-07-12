@@ -6,7 +6,9 @@ To use it you'll need
 - Redis (I used the docker oficial image)
 - go.mod requirements
 
-After this you'll be able to run
+After this you'll be able to run with  
+**go run main.go**  
+from the root dir
 Only one path is locked with authentication, it's the create, wich enable
 you to create a new pokemon in the DB, the list of paths is bellow
 
